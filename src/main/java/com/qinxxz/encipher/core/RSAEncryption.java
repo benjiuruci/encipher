@@ -72,7 +72,7 @@ public class RSAEncryption {
      * @param key 公钥或私钥的Key
      * @return
      */
-    public String encryptionDecryption(String content, int model, Key key) throws Exception{
+    private String encryptionDecryption(String content, int model, Key key) throws Exception{
         String result = "";
         Cipher cipher = Cipher.getInstance(Constant.RSA_EBC_PKCS);
         cipher.init(model, key);
