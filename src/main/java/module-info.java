@@ -7,5 +7,7 @@ module encipher {
     requires jakarta.servlet;
     requires spring.boot;
     requires org.slf4j;
+    requires spring.boot.autoconfigure;
+    requires spring.context;
 
 }

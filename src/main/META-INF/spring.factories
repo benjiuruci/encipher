@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.qinxxz.encipher.autoconfigure.EncipherAutoConfiruration
+    com.qinxxz.encipher.autoconfigure.EncipherAutoConfigure
