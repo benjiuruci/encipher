@@ -16,6 +16,8 @@ public class RequestFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.println("");
+
         Filter.super.init(filterConfig);
     }
 
