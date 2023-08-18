@@ -13,11 +13,15 @@ import org.springframework.context.annotation.Bean;
 @AutoConfiguration
 public class EncipherAutoConfigure {
 
+    private AnnotationSelect annotationSelect;
 
 
 
     @Bean
     public EncipherAutoConfigure autoConfigure(){
+        annotationSelect = new AnnotationSelect();
+
+        annotationSelect.scanAnnotation();
         return this;
     }
 
