@@ -21,7 +21,6 @@ public class EncipherAutoConfigure {
     public EncipherAutoConfigure autoConfigure(){
         annotationSelect = new AnnotationSelect();
 
-        annotationSelect.scanAnnotation();
         return this;
     }
 
