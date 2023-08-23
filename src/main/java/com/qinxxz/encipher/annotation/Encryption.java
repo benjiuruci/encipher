@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * @Author: qinxianzhong
  * @Date: 2023/8/17 15:47:51
  */
-@Target(value = ElementType.METHOD)
+@Target({ElementType.METHOD,ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Encryption {
 
