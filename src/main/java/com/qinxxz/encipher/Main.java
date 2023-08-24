@@ -51,25 +51,25 @@ public class Main {
         RSAKeyPair keyPair = GenerateKeyUtils.generateKeyPair(secureRandomSeed,2048);
 
 
-        System.out.println("公钥：" + keyPair.getPublicKey());
-        System.out.println("私钥：" + keyPair.getPrivateKey());
+        System.out.println("公钥：" + keyPair.publicKey());
+        System.out.println("私钥：" + keyPair.privateKey());
 
 
 
         try {
             //公钥、私钥必须分开使用，公钥解密时，必须是私钥解密，反之亦然.
-            String encrypted = rsaEncryption.byPublicKey(content, 1, keyPair.getPublicKey());
+            String encrypted = rsaEncryption.byPublicKey(content, 1, keyPair.publicKey());
 
-            String decrypted = rsaEncryption.byPrivateKey(encrypted, 2, keyPair.getPrivateKey());
+            String decrypted = rsaEncryption.byPrivateKey(encrypted, 2, keyPair.privateKey());
             System.out.println("加密后：\n" + encrypted);
             System.out.println("解密后：\n" + decrypted);
 
 
 
             // RSA签名
-            String sign = rsaEncryption.sign(content,keyPair.getPrivateKey() );
+            String sign = rsaEncryption.sign(content,keyPair.privateKey() );
             // RSA验签
-            boolean result = rsaEncryption.verify(content, keyPair.getPublicKey(), sign);
+            boolean result = rsaEncryption.verify(content, keyPair.publicKey(), sign);
             System.out.println("验签结果:" + result);
         } catch (Exception e) {
             e.printStackTrace();
