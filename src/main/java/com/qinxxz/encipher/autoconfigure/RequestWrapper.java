@@ -11,12 +11,14 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
+ * Request包装类
+ *
  * @Author: qinxianzhong
  * @Date: 2023/8/24
  */
 public class RequestWrapper extends HttpServletRequestWrapper {
 
-    private  Map<String,String[]> parameterMap;
+    private  Map<String,String> parameterMap;
 
     private byte[] requestBody = new byte[0];
 
@@ -55,4 +57,33 @@ public class RequestWrapper extends HttpServletRequestWrapper {
             }
         };
     }
+
+
+    public String getRequestData() {
+        return new String(requestBody);
+    }
+
+    public void setRequestData(String requestData){
+        this.requestBody = requestData.getBytes();
+    }
+
+    public void setParameterMap(Map<String,String> parameterMap){
+        this.parameterMap = parameterMap;
+    }
+
+    @Override
+    public String getParameter(String name){
+        return this.parameterMap.get(name);
+    }
+
+    @Override
+    public String[] getParameterValues(String name){
+        if (parameterMap.containsKey(name)){
+            return new String[] {
+                getParameter(name)
+            };
+        }
+        return super.getParameterValues(name);
+    }
+
 }

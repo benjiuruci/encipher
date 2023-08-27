@@ -23,6 +23,9 @@ public class GenerateKeyUtils {
      * @return 随机密钥
      */
     public static String generateKey(int size){
+        if (size != 16 && size != 32){
+            throw new RuntimeException("密钥长度不正确！" + size);
+        }
         StringBuilder key = new StringBuilder(size);
         Random random = new Random();
         for (int i = 0; i < size; i++) {

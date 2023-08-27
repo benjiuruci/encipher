@@ -43,7 +43,7 @@ public class AESEncryption {
             //加密内容转换成base64
             return Base64.getEncoder().encodeToString(encryptByte);
         } catch (Exception e) {
-            throw new RuntimeException("AES加密失败！", e);
+            throw new RuntimeException("AES加密失败！" + e);
         }
 
     }
@@ -76,7 +76,7 @@ public class AESEncryption {
             //再使用cipher解密
             return new String(cipher.doFinal(base64), Constant.ENCODING);
         } catch (Exception e) {
-            throw new RuntimeException("AES解密失败！", e);
+            throw new RuntimeException("AES解密失败！" + e);
         }
 
     }

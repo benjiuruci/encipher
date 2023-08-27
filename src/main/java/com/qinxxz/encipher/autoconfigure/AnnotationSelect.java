@@ -1,19 +1,18 @@
 package com.qinxxz.encipher.autoconfigure;
 
-import com.qinxxz.encipher.annotation.Decrypt;
+import com.qinxxz.encipher.annotation.Decryption;
 import com.qinxxz.encipher.annotation.Encryption;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.web.util.pattern.PathPattern;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Set;
 
 /**
  * 注解扫描器
@@ -21,12 +20,11 @@ import java.util.Objects;
  * @author qinxianzhong
  * @since 2023/8/17 17:53:04
  */
-@Component
 public class AnnotationSelect implements ApplicationContextAware {
     /**
      * 解密注解url路径集合
      */
-    public static List<String> decryptList = new ArrayList<>();
+    public static List<String> decryptionList = new ArrayList<>();
 
     /**
      * 加密注解url路径集合
@@ -36,65 +34,32 @@ public class AnnotationSelect implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
 
-        //获取带Controller注解的bean
-        Map<String, Object> controller = applicationContext.getBeansWithAnnotation(Controller.class);
+        Map<RequestMappingInfo,HandlerMethod> handlerMethodMap = applicationContext.getBean(RequestMappingHandlerMapping.class).getHandlerMethods();
 
-        for (Map.Entry<String, Object> entry : controller.entrySet()) {
-            Class<?> cls = entry.getValue().getClass();
-            Method[] methods = cls.getMethods();
-            //循环Controller下的方法
-            for (Method method : methods) {
-                //判断方法下是否有加密注解
-                Encryption encryption = AnnotationUtils.findAnnotation(method, Encryption.class);
-                if (encryption != null) {
-                    encryptionList.add(getApiUrl(cls, method));
-                }
-                Decrypt decrypt = AnnotationUtils.findAnnotation(method, Decrypt.class);
-                if (decrypt != null) {
-                    decryptList.add(getApiUrl(cls, method));
-                }
 
+        for (Map.Entry<RequestMappingInfo,HandlerMethod> infoEntry : handlerMethodMap.entrySet()){
+            HandlerMethod handlerMethod = infoEntry.getValue();
+            Decryption decryption = handlerMethod.getMethodAnnotation(Decryption.class);
+            Encryption encryption = handlerMethod.getMethodAnnotation(Encryption.class);
+
+            //判断该方法上是否有解密注解
+            if (decryption != null){
+                //获取uri路径地址
+                Set<PathPattern> patterns = infoEntry.getKey().getPathPatternsCondition().getPatterns();
+                for(PathPattern url :patterns) {
+                    decryptionList.add(url.getPatternString());
+                }
+            }
+            //判断该方法上是否有加密注解
+            if (encryption != null){
+                //获取uri路径地址
+                Set<PathPattern> patterns = infoEntry.getKey().getPathPatternsCondition().getPatterns();
+                for(PathPattern url :patterns) {
+                    encryptionList.add(url.getPatternString());
+                }
             }
 
         }
-    }
-
-
-    private String getApiUrl(Class<?> clz, Method method) {
-        StringBuilder uri = new StringBuilder();
-
-        RequestMapping clzRequestMapping = AnnotationUtils.findAnnotation(clz, RequestMapping.class);
-        if (clzRequestMapping != null) {
-            uri.append(formatUri(clzRequestMapping.value()[0]));
-        }
-
-        PostMapping postMapping = AnnotationUtils.findAnnotation(method, PostMapping.class);
-        GetMapping getMapping = AnnotationUtils.findAnnotation(method, GetMapping.class);
-        DeleteMapping deleteMapping = AnnotationUtils.findAnnotation(method, DeleteMapping.class);
-        PutMapping putMapping = AnnotationUtils.findAnnotation(method, PutMapping.class);
-        RequestMapping requestMapping = AnnotationUtils.findAnnotation(method, RequestMapping.class);
-
-        if (postMapping != null) {
-            uri.append(formatUri(postMapping.value()[0]));
-        }
-        if (getMapping != null) {
-            uri.append(formatUri(getMapping.value()[0]));
-        }
-        if (deleteMapping != null) {
-            uri.append(formatUri(deleteMapping.value()[0]));
-        }
-        if (putMapping != null) {
-            uri.append(putMapping.value()[0]);
-        }
-        return uri.toString();
-    }
-
-
-    private String formatUri(String uri) {
-        if (uri.startsWith("/")) {
-            return uri;
-        }
-        return "/" + uri;
     }
 
 
