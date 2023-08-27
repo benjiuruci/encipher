@@ -13,14 +13,14 @@ import java.util.Map;
 /**
  * Request包装类
  *
- * @Author: qinxianzhong
- * @Date: 2023/8/24
+ * @author qinxianzhong
+ * @since 2023/8/24
  */
 public class RequestWrapper extends HttpServletRequestWrapper {
 
     private  Map<String,String> parameterMap;
 
-    private byte[] requestBody = new byte[0];
+    private byte[] requestBody;
 
 
     public RequestWrapper(HttpServletRequest request) {
@@ -52,7 +52,7 @@ public class RequestWrapper extends HttpServletRequestWrapper {
             }
 
             @Override
-            public int read() throws IOException {
+            public int read() {
                 return arrayInputStream.read();
             }
         };

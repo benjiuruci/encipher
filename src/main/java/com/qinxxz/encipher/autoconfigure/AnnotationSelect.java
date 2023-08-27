@@ -41,23 +41,22 @@ public class AnnotationSelect implements ApplicationContextAware {
             HandlerMethod handlerMethod = infoEntry.getValue();
             Decryption decryption = handlerMethod.getMethodAnnotation(Decryption.class);
             Encryption encryption = handlerMethod.getMethodAnnotation(Encryption.class);
+            //获取uri路径地址
+            Set<PathPattern> patterns = null;
+            if (infoEntry.getKey().getPathPatternsCondition() != null) {
+                patterns = infoEntry.getKey().getPathPatternsCondition().getPatterns();
+            }
+            if (patterns != null) {
+                for(PathPattern url :patterns) {
+                    if (decryption != null){
+                        decryptionList.add(url.getPatternString());
+                    }
+                    if (encryption != null){
+                        encryptionList.add(url.getPatternString());
+                    }
+                }
+            }
 
-            //判断该方法上是否有解密注解
-            if (decryption != null){
-                //获取uri路径地址
-                Set<PathPattern> patterns = infoEntry.getKey().getPathPatternsCondition().getPatterns();
-                for(PathPattern url :patterns) {
-                    decryptionList.add(url.getPatternString());
-                }
-            }
-            //判断该方法上是否有加密注解
-            if (encryption != null){
-                //获取uri路径地址
-                Set<PathPattern> patterns = infoEntry.getKey().getPathPatternsCondition().getPatterns();
-                for(PathPattern url :patterns) {
-                    encryptionList.add(url.getPatternString());
-                }
-            }
 
         }
     }

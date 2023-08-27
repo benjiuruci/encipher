@@ -5,8 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * springboot配置
  *
- * @Author: qinxianzhong
- * @Date: 2023/8/25
+ * @author qinxianzhong
+ * @since 2023/8/25
  */
 @ConfigurationProperties(prefix = "spring.encipher")
 public record EncipherConfig(String secretKey,String vectorKey) {

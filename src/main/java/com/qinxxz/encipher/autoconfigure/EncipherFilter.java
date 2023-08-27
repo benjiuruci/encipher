@@ -18,16 +18,16 @@ import java.util.Map;
 /**
  * 加解密过滤器
  *
- * @Author: qinxianzhong
- * @Date: 2023/8/24
+ * @author qinxianzhong
+ * @since 2023/8/24
  */
 public class EncipherFilter implements Filter {
 
-    private EncipherConfig encipherConfig;
+    private final EncipherConfig encipherConfig;
 
-    private AESEncryption aes;
+    private final AESEncryption aes;
 
-    private RSAEncryption rsa;
+    private final RSAEncryption rsa;
 
     public EncipherFilter(EncipherConfig encipherConfig,AESEncryption aes,RSAEncryption rsa){
         this.encipherConfig = encipherConfig;
@@ -126,9 +126,6 @@ public class EncipherFilter implements Filter {
 
 
     private boolean contains(List<String> list,String uri){
-        if (list.contains(uri)){
-            return true;
-        }
-        return false;
+        return list.contains(uri);
     }
 }

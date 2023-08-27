@@ -6,13 +6,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletResponseWrapper;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 /**
  * Response包装类
  *
- * @Author: qinxianzhong
- * @Date: 2023/8/24
+ * @author qinxianzhong
+ * @since 2023/8/24
  */
 public class ResponseWrapper extends HttpServletResponseWrapper {
 
@@ -27,7 +26,7 @@ public class ResponseWrapper extends HttpServletResponseWrapper {
     }
 
     @Override
-    public ServletOutputStream getOutputStream() throws IOException {
+    public ServletOutputStream getOutputStream() {
         if (servletOutputStream == null){
             servletOutputStream = new ServletOutputStream() {
                 @Override
@@ -41,7 +40,7 @@ public class ResponseWrapper extends HttpServletResponseWrapper {
                 }
 
                 @Override
-                public void write(int b) throws IOException {
+                public void write(int b) {
                     output.write(b);
                 }
             };

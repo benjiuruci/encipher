@@ -8,8 +8,8 @@ import java.lang.annotation.Target;
 /**
  * 加密注解
  *
- * @Author: qinxianzhong
- * @Date: 2023/8/17 15:47:51
+ * @author qinxianzhong
+ * @since 2023/8/17 15:47:51
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

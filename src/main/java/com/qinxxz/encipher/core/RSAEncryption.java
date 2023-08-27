@@ -70,7 +70,7 @@ public class RSAEncryption {
      * @param content 要加解密的内容
      * @param model 1.表示加密模式 2.表示解密模式
      * @param key 公钥或私钥的Key
-     * @return
+     * @return 加密或解密过的数据
      */
     private String encryptionDecryption(String content, int model, Key key) throws Exception{
         String result = "";
@@ -94,8 +94,8 @@ public class RSAEncryption {
     /**
      * 签名
      * @param content 要签名的内容
-     * @param privateKey
-     * @return
+     * @param privateKey 私钥
+     * @return 签名值
      */
     public String sign(String content,String privateKey){
         try {
@@ -120,7 +120,7 @@ public class RSAEncryption {
      * @param content 内容
      * @param publicKey 公钥
      * @param sign 签名
-     * @return
+     * @return 是否通过
      */
     public boolean verify(String content,String publicKey,String sign){
         try{
