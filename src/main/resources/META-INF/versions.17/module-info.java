@@ -11,7 +11,8 @@ module encipher {
     requires spring.web;
     requires spring.webmvc;
     requires org.apache.tomcat.embed.core;
+    exports com.qinxxz.encipher.annotation;
+    exports com.qinxxz.encipher.core;
+    exports com.qinxxz.encipher.autoconfigure;
     opens spring.core;
-
-
 }

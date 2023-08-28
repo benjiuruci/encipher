@@ -71,7 +71,7 @@ public class AESEncryption {
             cipher.init(Cipher.DECRYPT_MODE, spec, ips);
 
             //base64密文解码
-            byte[] base64 = Base64.getDecoder().decode(content.getBytes(Constant.ENCODING));
+            byte[] base64 = Base64.getDecoder().decode(content.replaceAll(" +", "+").getBytes(Constant.ENCODING));
 
             //再使用cipher解密
             return new String(cipher.doFinal(base64), Constant.ENCODING);
