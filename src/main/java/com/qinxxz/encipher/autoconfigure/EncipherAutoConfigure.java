@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
  * @since 2023/8/17 16:24:41
  */
 @Configuration
-@EnableAutoConfiguration
 @EnableConfigurationProperties(EncipherConfig.class)
 public class EncipherAutoConfigure {
 
