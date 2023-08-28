@@ -27,11 +27,6 @@ public class EncipherAutoConfigure {
 
     @Bean
     public FilterRegistrationBean registrationBean() {
-
-        System.out.println("加载：：：：：");
-        System.out.println("加载：：：：：");
-        System.out.println("加载：：：：：");
-
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new EncipherFilter(encipherConfig,new AESEncryption(),new RSAEncryption()));
         registrationBean.setOrder(1);

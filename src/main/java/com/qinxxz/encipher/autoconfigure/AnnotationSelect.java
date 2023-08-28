@@ -33,10 +33,7 @@ public class AnnotationSelect implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
-
         Map<RequestMappingInfo,HandlerMethod> handlerMethodMap = applicationContext.getBean(RequestMappingHandlerMapping.class).getHandlerMethods();
-
-
         for (Map.Entry<RequestMappingInfo,HandlerMethod> infoEntry : handlerMethodMap.entrySet()){
             HandlerMethod handlerMethod = infoEntry.getValue();
             Decryption decryption = handlerMethod.getMethodAnnotation(Decryption.class);
@@ -56,8 +53,6 @@ public class AnnotationSelect implements ApplicationContextAware {
                     }
                 }
             }
-
-
         }
     }
 
