@@ -1,8 +1,8 @@
 /**
  * @author qinxianzhong
- * @since 2023/8/11 11:24:23
+ * @since 2023/8/28
  */
-module encipher {
+module com.qinxxz.encipher {
 
     requires spring.boot;
     requires spring.boot.autoconfigure;
@@ -15,4 +15,5 @@ module encipher {
     exports com.qinxxz.encipher.core;
     exports com.qinxxz.encipher.autoconfigure;
     opens spring.core;
+
 }

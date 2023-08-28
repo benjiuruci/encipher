@@ -26,8 +26,8 @@ public class EncipherAutoConfigure {
 
 
     @Bean
-    public FilterRegistrationBean registrationBean() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+    public FilterRegistrationBean<EncipherFilter> registrationBean() {
+        FilterRegistrationBean<EncipherFilter> registrationBean = new FilterRegistrationBean<EncipherFilter>();
         registrationBean.setFilter(new EncipherFilter(encipherConfig,new AESEncryption(),new RSAEncryption()));
         registrationBean.setOrder(1);
         registrationBean.setName("EncipherFilter");
